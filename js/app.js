@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js?v=8";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=9";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js?v=8";
+} from "./builds.js?v=9";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -174,7 +174,7 @@ function gemFaceHtml(ring, typeId, level) {
   const shape = ring === "eternal" ? "eternal" : "reinc";
   const cls = `gem-face ${shape} ${gemClass(typeId, ring)}`;
   if (url) {
-    return `<div class="${cls} gem-has-icon" style="background-image:url('${url}')"></div>`;
+    return `<div class="${cls} gem-has-icon"><img class="gem-img" src="${url}" alt="" draggable="false" /></div>`;
   }
   return `<div class="${cls}">
     <span class="gem-lv">${roman(level)}</span>
