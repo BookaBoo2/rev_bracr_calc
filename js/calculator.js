@@ -1,4 +1,7 @@
-import { POWER_COLS, POWER_DISPLAY_COLS, PSKILL_SPLIT } from "./config.js";
+import { POWER_COLS, POWER_DISPLAY_COLS } from "./config.js?v=3";
+
+// Split multi-effect chaos stone descriptions (V level: ", все характеристики...").
+const PSKILL_SPLIT_RE = /,\s+(?=все )/;
 
 const ETERNAL_DEFAULTS = ["sun", "moon", "time", "space"];
 const REINC_DEFAULTS = ["soul", "spirit", "birth", "death"];
@@ -27,7 +30,7 @@ function displayName(gameData, ring, level, typeId, classId, variantId) {
 function splitPskillDesc(desc) {
   const text = (desc || "").trim();
   if (!text) return [];
-  return text.split(PSKILL_SPLIT).map(p => p.trim()).filter(Boolean);
+  return text.split(PSKILL_SPLIT_RE).map(p => p.trim()).filter(Boolean);
 }
 
 function chaosEffects(row) {

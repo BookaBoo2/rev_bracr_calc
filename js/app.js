@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=3";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js";
+} from "./builds.js?v=3";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -650,4 +650,8 @@ async function init() {
   });
 }
 
-init();
+init().catch(e => {
+  console.error(e);
+  const status = document.getElementById("appStatus");
+  if (status) status.textContent = "Ошибка запуска: " + e.message;
+});
