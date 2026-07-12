@@ -172,11 +172,10 @@ function gemIconUrl(typeId, level) {
 function gemFaceHtml(ring, typeId, level) {
   const url = gemIconUrl(typeId, level);
   const shape = ring === "eternal" ? "eternal" : "reinc";
-  const cls = `gem-face ${shape} ${gemClass(typeId, ring)}`;
   if (url) {
-    return `<div class="${cls} gem-has-icon"><img class="gem-img" src="${url}" alt="" draggable="false" /></div>`;
+    return `<div class="gem-face ${shape} gem-has-icon"><img class="gem-img" src="${url}" alt="" draggable="false" loading="lazy" /></div>`;
   }
-  return `<div class="${cls}">
+  return `<div class="gem-face ${shape} ${gemClass(typeId, ring)}">
     <span class="gem-lv">${roman(level)}</span>
     <span class="gem-icon"></span>
   </div>`;
@@ -286,7 +285,7 @@ function renderDisk() {
 function makeSlotBtn(ring, idx, slot, slotMeta) {
   const btn = document.createElement("button");
   btn.type = "button";
-  btn.className = "gem-slot";
+  btn.className = "gem-slot" + (gemIconUrl(slot.type_id, slot.level) ? " gem-slot--icon" : "");
   btn.style.left = slotMeta.left;
   btn.style.top = slotMeta.top;
   btn.dataset.ring = ring;
