@@ -38,6 +38,19 @@ body {
   flex-direction: column;
 }
 
+.app-title {
+  margin: 0;
+  padding: 0.85rem 1rem 0.65rem;
+  font-family: "Cinzel", serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  text-align: center;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid rgba(255, 220, 160, 0.08);
+  background: linear-gradient(180deg, #2a2018, #1a120c);
+}
+
 .win-header {
   display: flex;
   justify-content: space-between;
@@ -601,11 +614,21 @@ body {
 }
 
 .win-footer {
-  padding: 0.35rem 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.75rem;
   font-size: 0.68rem;
   color: var(--inactive);
   border-top: 1px solid rgba(255,255,255,0.05);
   background: #0c1016;
+}
+
+.dev-credits {
+  color: var(--muted);
+  margin-left: auto;
 }
 
 #appStatus.ok,

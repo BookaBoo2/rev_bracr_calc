@@ -1,4 +1,4 @@
-import { POWER_COLS, POWER_DISPLAY_COLS } from "./config.js?v=4";
+import { POWER_COLS, POWER_DISPLAY_COLS } from "./config.js?v=5";
 
 // Split multi-effect chaos stone descriptions (V level: ", все характеристики...").
 const PSKILL_SPLIT_RE = /,\s+(?=все )/;
