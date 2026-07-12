@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js?v=7";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=8";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js?v=7";
+} from "./builds.js?v=8";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -169,10 +169,17 @@ function gemIconUrl(typeId, level) {
   return crystalIcons?.[typeId]?.[String(lv)] || null;
 }
 
-function gemIconHtml(typeId, level) {
+function gemFaceHtml(ring, typeId, level) {
   const url = gemIconUrl(typeId, level);
-  if (!url) return '<span class="gem-icon"></span>';
-  return `<span class="gem-icon gem-icon-img" style="background-image:url('${url}')"></span>`;
+  const shape = ring === "eternal" ? "eternal" : "reinc";
+  const cls = `gem-face ${shape} ${gemClass(typeId, ring)}`;
+  if (url) {
+    return `<div class="${cls} gem-has-icon" style="background-image:url('${url}')"></div>`;
+  }
+  return `<div class="${cls}">
+    <span class="gem-lv">${roman(level)}</span>
+    <span class="gem-icon"></span>
+  </div>`;
 }
 
 function eternalSlotLayout(count) {
@@ -286,11 +293,7 @@ function makeSlotBtn(ring, idx, slot, slotMeta) {
   btn.dataset.typeId = slot.type_id;
   btn.title = `${slotTypeName(ring, slot.type_id)} ${roman(slot.level)}`;
   const shape = ring === "eternal" ? "eternal" : "reinc";
-  btn.innerHTML = `
-    <div class="gem-face ${shape} ${gemClass(slot.type_id, ring)}">
-      <span class="gem-lv">${roman(slot.level)}</span>
-      ${gemIconHtml(slot.type_id, slot.level)}
-    </div>`;
+  btn.innerHTML = gemFaceHtml(ring, slot.type_id, slot.level);
   btn.addEventListener("click", () => openSlotModal(ring, idx));
   return btn;
 }
