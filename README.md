@@ -1,69 +1,64 @@
-# Bracteate Builder (static)
+# Калькулятор брактеата
 
-Полностью клиентская версия калькулятора брактеата — без Python-сервера и PostgreSQL. Подходит для GitHub Pages и любого статического хостинга.
+Сборка брактеата для Revelation (RU): камни, руны, бонусы сил, хаос-камень по классу.  
+Работает в браузере, сервер не нужен.
 
-## Запуск локально
+**Онлайн:** https://bookaboo2.github.io/rev_bracr_calc/
+
+---
+
+## Как пользоваться
+
+1. Выберите **класс** вверху — от него зависят камни хаоса в центре.
+2. Кликайте по камням на диске: руна, уровень, тип центрального камня.
+3. Справа — сумма статов и список активных бонусов.
+4. **Поделиться** / **JSON ↓** — скачать сборку; **JSON ↑** — загрузить чужой или свой старый файл.
+5. **Сохранить** / **Загрузить** — до 30 сборок в памяти браузера (на этом же устройстве).
+
+Файлы JSON между сохранениями совместимы: можно переслать другу или открыть позже.
+
+---
+
+## Запуск у себя на компе
+
+Клонировать репозиторий и из его корня поднять любой простой HTTP-сервер.  
+Двойной клик по `index.html` **не сработает** — браузер блокирует загрузку `game-data.json` через `file://`.
+
+**Windows (Python уже стоит):**
 
 ```powershell
-cd web-static
+git clone https://github.com/BookaBoo2/rev_bracr_calc.git
+cd rev_bracr_calc
 py -m http.server 8080
 ```
 
-Откройте http://127.0.0.1:8080/
+Открыть: http://127.0.0.1:8080/
 
-> Нужен простой HTTP-сервер: ES-модули и `fetch("data/game-data.json")` не работают при открытии `index.html` напрямую через `file://`.
-
-## Обновление данных
-
-После изменения CSV в `data/tables/`:
+**Если Python под другим имением:**
 
 ```powershell
+python -m http.server 8080
+```
+
+Подойдёт и Live Server в VS Code / Cursor — главное, чтобы сайт открывался по `http://`, а не `file://`.
+
+---
+
+## Данные игры
+
+Таблицы камней и бонусов лежат в `data/game-data.json` (~340 KB). Этот файл уже в репозитории, отдельно ничего ставить не надо.
+
+Править таблицы вручную имеет смысл только если вы ведёте полный исходный проект с CSV. Тогда пересборка:
+
+```powershell
+# из корня репозитория app_camera, не из rev_bracr_calc
 py web-static/scripts/build_data.py
 ```
 
-Скрипт пересобирает `web-static/data/game-data.json` из таблиц проекта.
+После этого закоммитить обновлённый `data/game-data.json`.
 
-## Экспорт / импорт JSON
+---
 
-Формат **тот же**, что в версии `web/`:
+## Разработчики
 
-```json
-{
-  "format": "bracteate_build",
-  "version": 1,
-  "name": "Мой брактеат",
-  "saved_at": "2026-07-12T12:00:00.000Z",
-  "build": {
-    "disk": "ultimate",
-    "character_level": 59,
-    "eternal": [{ "type_id": "moon", "level": 3 }],
-    "reincarnation": [{ "type_id": "birth", "level": 3 }],
-    "chaos": { "class_id": "shengtang", "variant_id": "sharp", "level": 1 }
-  }
-}
-```
-
-- **JSON ↓ / Поделиться** — скачать файл сборки
-- **JSON ↑** — загрузить файл (можно из другой версии приложения)
-- **Сохранить / Загрузить** — до 30 сборок в `localStorage` браузера
-
-## GitHub Pages
-
-1. Залейте репозиторий на GitHub
-2. Settings → Pages → Source: branch, folder **`/web-static`**
-3. Сайт будет доступен по адресу `https://<user>.github.io/<repo>/`
-
-## Структура
-
-```
-web-static/
-  index.html          — UI
-  css/style.css
-  js/
-    app.js            — интерфейс
-    calculator.js     — расчёт бонусов (порт backend/calculator.py)
-    builds.js         — export/import + localStorage
-    config.js
-  data/game-data.json — сгенерированные таблицы
-  scripts/build_data.py
-```
+BookaBoo, Мандалордец — сервер **Кенсай**.
