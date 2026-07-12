@@ -27,7 +27,7 @@ function displayName(gameData, ring, level, typeId, classId, variantId) {
 function splitPskillDesc(desc) {
   const text = (desc || "").trim();
   if (!text) return [];
-  return PSKILL_SPLIT.split(text).map(p => p.trim()).filter(Boolean);
+  return text.split(PSKILL_SPLIT).map(p => p.trim()).filter(Boolean);
 }
 
 function chaosEffects(row) {

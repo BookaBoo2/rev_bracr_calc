@@ -451,14 +451,20 @@ function calculate() {
   if (!gameData) return;
   normalizeChaos();
   const ly = layout();
-  const data = calculateBuild(gameData, {
-    disk: state.disk,
-    character_level: state.character_level,
-    eternal: state.eternal,
-    reincarnation: state.reincarnation,
-    chaos: ly.chaos ? state.chaos : null,
-  });
-  renderBonuses(data);
+  try {
+    const data = calculateBuild(gameData, {
+      disk: state.disk,
+      character_level: state.character_level,
+      eternal: state.eternal,
+      reincarnation: state.reincarnation,
+      chaos: ly.chaos ? state.chaos : null,
+    });
+    renderBonuses(data);
+  } catch (e) {
+    console.error("calculate failed", e);
+    document.getElementById("powerBonuses").innerHTML =
+      `<div class="empty-bonus">Ошибка расчёта: ${e.message}</div>`;
+  }
 }
 
 function loadChaosData(classId) {
