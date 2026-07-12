@@ -10,32 +10,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=5" />
+  <link rel="stylesheet" href="css/style.css?v=6" />
 </head>
 <body>
   <div class="game-window">
     <h1 class="app-title">Калькулятор брактеата</h1>
 
     <div class="win-toolbar">
-      <label class="tb-field">
-        <span>Диск</span>
-        <select id="diskSelect"></select>
-      </label>
-      <label class="tb-field">
-        <span>Уровень персонажа</span>
-        <input id="charLevel" type="number" min="1" max="120" value="59" />
-      </label>
       <label class="tb-field" id="chaosClassField">
-        <span>Класс (хаос)</span>
+        <span>Класс</span>
         <select id="chaosClass"></select>
-      </label>
-      <label class="tb-field" id="chaosVariantField">
-        <span>Тип центрального камня (2 на класс)</span>
-        <div id="chaosTypePick" class="chaos-type-pick"></div>
-      </label>
-      <label class="tb-field" id="chaosLevelField">
-        <span>Уровень камня</span>
-        <select id="chaosLevel"></select>
       </label>
       <div class="tb-save-row">
         <label class="tb-field">
@@ -121,6 +105,6 @@
     </div>
   </div>
 
-  <script type="module" src="js/app.js?v=5"></script>
+  <script type="module" src="js/app.js?v=6"></script>
 </body>
 </html>

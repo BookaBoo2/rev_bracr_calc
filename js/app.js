@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js?v=5";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=6";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js?v=5";
+} from "./builds.js?v=6";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -386,7 +386,6 @@ function saveModal() {
   if (modalCtx?.isChaos) {
     state.chaos.variant_id = modalTypeValue();
     state.chaos.level = Math.min(5, lv);
-    syncChaosLevelSelect();
   } else if (modalCtx) {
     state[modalCtx.ring][modalCtx.idx] = {
       type_id: modalTypeValue(),
@@ -491,18 +490,17 @@ function applyBuild(build) {
   state.reincarnation = Array.isArray(build.reincarnation) ? build.reincarnation : [];
   if (build.chaos) state.chaos = { ...build.chaos };
 
-  document.getElementById("diskSelect").value = state.disk;
-  document.getElementById("charLevel").value = state.character_level;
   normalizeChaos();
   ensureSlots();
-  fillChaosSelects();
+  fillChaosClassSelect();
   loadChaosData(state.chaos.class_id);
   renderDisk();
   calculate();
 }
 
-function fillChaosSelects() {
+function fillChaosClassSelect() {
   const cls = document.getElementById("chaosClass");
+  if (!cls) return;
   cls.innerHTML = meta.classes.map(c =>
     `<option value="${c.class_id}" ${state.chaos.class_id === c.class_id ? "selected" : ""}>${c.class_ru}</option>`
   ).join("");
@@ -511,51 +509,12 @@ function fillChaosSelects() {
   if (!types.some(v => v.variant_id === state.chaos.variant_id)) {
     state.chaos.variant_id = types[0]?.variant_id || "sharp";
   }
-  renderChaosTypePick();
-  syncChaosLevelSelect();
-}
-
-function renderChaosTypePick() {
-  const el = document.getElementById("chaosTypePick");
-  if (!el) return;
-  const types = chaosTypesForClass(state.chaos.class_id);
-  if (!types.length) {
-    el.innerHTML = '<span class="empty-bonus">Нет данных</span>';
-    return;
-  }
-  el.innerHTML = types.map(t => {
-    const name = t.name_ru || t.variant_name_ru;
-    const active = t.variant_id === state.chaos.variant_id ? " active" : "";
-    return `<button type="button" class="chaos-type-btn${active}" data-variant="${t.variant_id}">${name}</button>`;
-  }).join("");
-  el.querySelectorAll(".chaos-type-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      state.chaos.variant_id = btn.dataset.variant;
-      renderChaosTypePick();
-      syncChaosLevelSelect();
-      renderDisk();
-      calculate();
-    });
-  });
-}
-
-function syncChaosLevelSelect() {
-  normalizeChaos();
-  const sel = document.getElementById("chaosLevel");
-  sel.innerHTML = Array.from({ length: 5 }, (_, i) => {
-    const lv = i + 1;
-    return `<option value="${lv}" ${Number(state.chaos.level) === lv ? "selected" : ""}>${roman(lv)}</option>`;
-  }).join("");
 }
 
 function updateChaosToolbar() {
   const ly = layout();
-  const show = !!ly.chaos;
-  for (const id of ["chaosClassField", "chaosVariantField", "chaosLevelField"]) {
-    const el = document.getElementById(id);
-    if (el) el.classList.toggle("hidden", !show);
-  }
-  if (show) syncChaosLevelSelect();
+  const el = document.getElementById("chaosClassField");
+  if (el) el.classList.toggle("hidden", !ly.chaos);
 }
 
 async function loadGameData() {
@@ -578,41 +537,18 @@ async function init() {
     return;
   }
 
-  document.getElementById("diskSelect").innerHTML = Object.entries(meta.disks).map(([k, v]) =>
-    `<option value="${k}">${v.name_ru}</option>`
-  ).join("");
-  document.getElementById("diskSelect").value = state.disk;
-
   normalizeChaos();
   loadChaosData(state.chaos.class_id);
-  fillChaosSelects();
+  fillChaosClassSelect();
   ensureSlots();
   renderDisk();
   calculate();
   refreshSavedBuilds();
 
-  document.getElementById("diskSelect").addEventListener("change", e => {
-    state.disk = e.target.value;
-    ensureSlots();
-    renderDisk();
-    calculate();
-  });
-
-  document.getElementById("charLevel").addEventListener("change", e => {
-    state.character_level = +e.target.value || 59;
-    calculate();
-  });
-
   document.getElementById("chaosClass").addEventListener("change", e => {
     state.chaos.class_id = e.target.value;
     loadChaosData(state.chaos.class_id);
-    fillChaosSelects();
-    renderDisk();
-    calculate();
-  });
-
-  document.getElementById("chaosLevel").addEventListener("change", e => {
-    state.chaos.level = Math.min(5, Math.max(1, +e.target.value || 1));
+    fillChaosClassSelect();
     renderDisk();
     calculate();
   });
