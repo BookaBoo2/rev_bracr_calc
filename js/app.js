@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js?v=6";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=7";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js?v=6";
+} from "./builds.js?v=7";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -34,6 +34,7 @@ const RUNE_TYPE_ORDER = {
 
 let gameData = null;
 let meta = null;
+let crystalIcons = {};
 let modalCtx = null;
 let lastCalc = null;
 let chaosCrystals = {};
@@ -162,6 +163,18 @@ function gemClass(typeId, ring) {
   return `gem-${typeId}`;
 }
 
+function gemIconUrl(typeId, level) {
+  const lv = Number(level);
+  if (!Number.isFinite(lv) || lv < 3 || lv > 7) return null;
+  return crystalIcons?.[typeId]?.[String(lv)] || null;
+}
+
+function gemIconHtml(typeId, level) {
+  const url = gemIconUrl(typeId, level);
+  if (!url) return '<span class="gem-icon"></span>';
+  return `<span class="gem-icon gem-icon-img" style="background-image:url('${url}')"></span>`;
+}
+
 function eternalSlotLayout(count) {
   return count >= 8 ? ETERNAL_SLOTS_8 : ETERNAL_SLOTS_4.slice(0, count);
 }
@@ -276,7 +289,7 @@ function makeSlotBtn(ring, idx, slot, slotMeta) {
   btn.innerHTML = `
     <div class="gem-face ${shape} ${gemClass(slot.type_id, ring)}">
       <span class="gem-lv">${roman(slot.level)}</span>
-      <span class="gem-icon"></span>
+      ${gemIconHtml(slot.type_id, slot.level)}
     </div>`;
   btn.addEventListener("click", () => openSlotModal(ring, idx));
   return btn;
@@ -518,10 +531,18 @@ function updateChaosToolbar() {
 }
 
 async function loadGameData() {
-  const r = await fetch("data/game-data.json");
-  if (!r.ok) throw new Error(`Не удалось загрузить data/game-data.json (${r.status})`);
-  gameData = await r.json();
+  const [dataRes, iconsRes] = await Promise.all([
+    fetch("data/game-data.json"),
+    fetch("assets/icons/crystal-icons.json"),
+  ]);
+  if (!dataRes.ok) throw new Error(`Не удалось загрузить data/game-data.json (${dataRes.status})`);
+  gameData = await dataRes.json();
   meta = gameData.meta;
+  if (iconsRes.ok) {
+    crystalIcons = await iconsRes.json();
+  } else {
+    crystalIcons = {};
+  }
 }
 
 async function init() {

@@ -334,6 +334,14 @@ body {
   opacity: 0.95;
 }
 
+.gem-icon.gem-icon-img {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  box-shadow: none;
+}
+
 .gem-face.eternal {
   width: 48px;
   height: 48px;
@@ -374,49 +382,49 @@ body {
 }
 
 /* Rune colors from game inventory (Яркий камень …). */
-.gem-sun .gem-icon {
+.gem-sun .gem-icon:not(.gem-icon-img) {
   /* небесных светил — жёлтый/золотой */
   background: radial-gradient(circle at 35% 28%, #f0d868, #c8a830 52%, #8a7818 78%);
   box-shadow: inset 0 0 8px rgba(255, 230, 120, 0.4);
 }
 
-.gem-moon .gem-icon {
+.gem-moon .gem-icon:not(.gem-icon-img) {
   /* небесного металла — тёмно-синий */
   background: radial-gradient(circle at 35% 28%, #5878c8, #283878 55%, #141e48 82%);
   box-shadow: inset 0 0 8px rgba(100, 140, 220, 0.35);
 }
 
-.gem-time .gem-icon {
+.gem-time .gem-icon:not(.gem-icon-img) {
   /* небесного творения — красный/малиновый */
   background: radial-gradient(circle at 35% 28%, #e85878, #b82848 55%, #801830 82%);
   box-shadow: inset 0 0 8px rgba(255, 120, 140, 0.35);
 }
 
-.gem-space .gem-icon {
+.gem-space .gem-icon:not(.gem-icon-img) {
   /* небесного огня — бирюзовый */
   background: radial-gradient(circle at 35% 28%, #58d0c8, #28a098 55%, #107068 82%);
   box-shadow: inset 0 0 8px rgba(120, 230, 220, 0.35);
 }
 
-.gem-soul .gem-icon {
+.gem-soul .gem-icon:not(.gem-icon-img) {
   /* грозовых ливней — голубой */
   background: radial-gradient(circle at 35% 28%, #68d0f0, #2898c8 55%, #106888 82%);
   box-shadow: inset 0 0 8px rgba(140, 220, 255, 0.4);
 }
 
-.gem-spirit .gem-icon {
+.gem-spirit .gem-icon:not(.gem-icon-img) {
   /* земной тверди — насыщенный синий */
   background: radial-gradient(circle at 35% 28%, #5080d8, #2040a0 55%, #102060 82%);
   box-shadow: inset 0 0 8px rgba(100, 150, 255, 0.35);
 }
 
-.gem-birth .gem-icon {
+.gem-birth .gem-icon:not(.gem-icon-img) {
   /* весенних ветров — зелёный */
   background: radial-gradient(circle at 35% 28%, #78e058, #40b028 55%, #208018 82%);
   box-shadow: inset 0 0 8px rgba(160, 240, 120, 0.35);
 }
 
-.gem-death .gem-icon {
+.gem-death .gem-icon:not(.gem-icon-img) {
   /* бушующих морей — оранжево-красный */
   background: radial-gradient(circle at 35% 28%, #f07848, #d04820 55%, #983018 82%);
   box-shadow: inset 0 0 8px rgba(255, 160, 100, 0.35);

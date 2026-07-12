@@ -1,0 +1,58 @@
+{
+  "sun": {
+    "3": "assets/icons/crystals/sun_L3.png",
+    "4": "assets/icons/crystals/sun_L4.png",
+    "5": "assets/icons/crystals/sun_L5.png",
+    "6": "assets/icons/crystals/sun_L6.png",
+    "7": "assets/icons/crystals/sun_L7.png"
+  },
+  "moon": {
+    "3": "assets/icons/crystals/moon_L3.png",
+    "4": "assets/icons/crystals/moon_L4.png",
+    "5": "assets/icons/crystals/moon_L5.png",
+    "6": "assets/icons/crystals/moon_L6.png",
+    "7": "assets/icons/crystals/moon_L7.png"
+  },
+  "time": {
+    "3": "assets/icons/crystals/time_L3.png",
+    "4": "assets/icons/crystals/time_L4.png",
+    "5": "assets/icons/crystals/time_L5.png",
+    "6": "assets/icons/crystals/time_L6.png",
+    "7": "assets/icons/crystals/time_L7.png"
+  },
+  "space": {
+    "3": "assets/icons/crystals/space_L3.png",
+    "4": "assets/icons/crystals/space_L4.png",
+    "5": "assets/icons/crystals/space_L5.png",
+    "6": "assets/icons/crystals/space_L6.png",
+    "7": "assets/icons/crystals/space_L7.png"
+  },
+  "soul": {
+    "3": "assets/icons/crystals/soul_L3.png",
+    "4": "assets/icons/crystals/soul_L4.png",
+    "5": "assets/icons/crystals/soul_L5.png",
+    "6": "assets/icons/crystals/soul_L6.png",
+    "7": "assets/icons/crystals/soul_L7.png"
+  },
+  "spirit": {
+    "3": "assets/icons/crystals/spirit_L3.png",
+    "4": "assets/icons/crystals/spirit_L4.png",
+    "5": "assets/icons/crystals/spirit_L5.png",
+    "6": "assets/icons/crystals/spirit_L6.png",
+    "7": "assets/icons/crystals/spirit_L7.png"
+  },
+  "birth": {
+    "3": "assets/icons/crystals/birth_L3.png",
+    "4": "assets/icons/crystals/birth_L4.png",
+    "5": "assets/icons/crystals/birth_L5.png",
+    "6": "assets/icons/crystals/birth_L6.png",
+    "7": "assets/icons/crystals/birth_L7.png"
+  },
+  "death": {
+    "3": "assets/icons/crystals/death_L3.png",
+    "4": "assets/icons/crystals/death_L4.png",
+    "5": "assets/icons/crystals/death_L5.png",
+    "6": "assets/icons/crystals/death_L6.png",
+    "7": "assets/icons/crystals/death_L7.png"
+  }
+}

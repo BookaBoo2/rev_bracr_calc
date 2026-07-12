@@ -179,7 +179,7 @@ def build_meta(chaos_rows: list[dict], ring_rows: list[dict], bonuses: list[dict
         "rings": {
             "eternal": {"name_ru": "Внешнее кольцо (вечные камни)", "types": ETERNAL_TYPES, "max_level": 9},
             "reincarnation": {"name_ru": "Среднее кольцо (циклические камни)", "types": REINCARNATION_TYPES, "max_level": 9},
-            "chaos": {"name_ru": "Центр — 2 камня на класс", "max_level": 5},
+            "chaos": {"name_ru": "Центр — 2 камня на класс", "max_level": 8},
         },
         "powers": [{"id": k, "label_ru": POWER_RUNE_LABELS[k]} for k in POWER_DISPLAY_COLS],
         "classes": classes,
