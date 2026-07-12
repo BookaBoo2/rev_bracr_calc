@@ -12,4 +12,4 @@ export const BUILD_FORMAT = "bracteate_build";
 export const BUILD_VERSION = 1;
 export const BUILDS_STORAGE_KEY = "bracteate_saved_builds_v1";
 export const MAX_BUILDS = 30;
-export const APP_ASSET_VERSION = "3";
+export const APP_ASSET_VERSION = "4";

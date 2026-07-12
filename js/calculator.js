@@ -1,4 +1,4 @@
-import { POWER_COLS, POWER_DISPLAY_COLS } from "./config.js?v=3";
+import { POWER_COLS, POWER_DISPLAY_COLS } from "./config.js?v=4";
 
 // Split multi-effect chaos stone descriptions (V level: ", все характеристики...").
 const PSKILL_SPLIT_RE = /,\s+(?=все )/;
@@ -108,6 +108,20 @@ function evaluateBonuses(gameData, totals) {
   return { active, inactive };
 }
 
+function aggregateStats(crystals) {
+  const grouped = new Map();
+  for (const c of crystals) {
+    if (c.base_stat && c.stat_value != null) {
+      const val = Number(c.stat_value);
+      if (!Number.isFinite(val)) continue;
+      grouped.set(c.base_stat, (grouped.get(c.base_stat) || 0) + val);
+    }
+  }
+  return [...grouped.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0], "ru"))
+    .map(([stat, total]) => ({ stat, total }));
+}
+
 export function calculateBuild(gameData, req) {
   const layout = gameData.meta.disks[req.disk] || gameData.meta.disks.high;
   const powerLabels = Object.fromEntries(
@@ -208,6 +222,7 @@ export function calculateBuild(gameData, req) {
     powers: powerList,
     total_power_points: Object.values(powers).reduce((a, b) => a + b, 0),
     crystals,
+    stat_summary: aggregateStats(crystals),
     active_bonuses: active,
     chaos_bonuses: chaosBonuses,
     inactive_bonuses: inactive,

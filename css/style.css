@@ -450,6 +450,44 @@ body {
   max-height: 580px;
 }
 
+.stat-summary-block {
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.stat-summary-block h2 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gold-bright);
+  margin-bottom: 0.5rem;
+}
+
+.stat-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stat-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 0.35rem 0.45rem;
+  background: rgba(0, 0, 0, 0.22);
+  border-radius: 3px;
+  font-size: 0.82rem;
+}
+
+.stat-summary-row span {
+  color: var(--muted);
+}
+
+.stat-summary-row strong {
+  color: var(--active);
+  font-weight: 600;
+}
+
 .bonus-head {
   display: flex;
   justify-content: space-between;

@@ -1,4 +1,4 @@
-import { calculateBuild, getChaosForClass } from "./calculator.js?v=3";
+import { calculateBuild, getChaosForClass } from "./calculator.js?v=4";
 import {
   buildExportDoc,
   deleteBuild,
@@ -6,7 +6,7 @@ import {
   listBuilds,
   parseImportDoc,
   saveBuild,
-} from "./builds.js?v=3";
+} from "./builds.js?v=4";
 
 const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
 
@@ -407,8 +407,21 @@ function crystalLine(c) {
   return `${name} (${lv}) — ${c.extra || c.power_ru || ""}`;
 }
 
+function renderStatSummary(data) {
+  const el = document.getElementById("statSummary");
+  const rows = data.stat_summary || [];
+  el.innerHTML = rows.length
+    ? rows.map(r => `
+      <div class="stat-summary-row">
+        <span>${r.stat}</span>
+        <strong>+${r.total}</strong>
+      </div>`).join("")
+    : '<div class="empty-bonus">Нет числовых статов от камней</div>';
+}
+
 function renderBonuses(data) {
   lastCalc = data;
+  renderStatSummary(data);
   const pb = document.getElementById("powerBonuses");
   const rows = [];
   for (const b of data.active_bonuses || []) {

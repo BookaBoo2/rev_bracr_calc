@@ -1,4 +1,4 @@
-import { BUILD_FORMAT, BUILD_VERSION, BUILDS_STORAGE_KEY, MAX_BUILDS } from "./config.js?v=3";
+import { BUILD_FORMAT, BUILD_VERSION, BUILDS_STORAGE_KEY, MAX_BUILDS } from "./config.js?v=4";
 
 function readStore() {
   try {
